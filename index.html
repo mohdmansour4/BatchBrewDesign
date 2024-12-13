@@ -22,19 +22,6 @@
             background-color: #f5f5f5;
         }
 
-        /* RTL Support */
-        [dir="rtl"] .stepper-input::before {
-            right: 0;
-            left: auto;
-            content: "+";
-        }
-
-        [dir="rtl"] .stepper-input::after {
-            left: 0;
-            right: auto;
-            content: "-";
-        }
-
         .calculator {
             background: #fff;
             padding: 30px;
@@ -143,11 +130,6 @@
             border-left: 4px solid var(--primary-color);
         }
 
-        [dir="rtl"] .results {
-            border-left: none;
-            border-right: 4px solid var(--primary-color);
-        }
-
         .results h2 {
             color: var(--primary-color);
             margin-top: 0;
@@ -184,7 +166,7 @@
     </style>
 </head>
 <body>
-    <div class="calculator" dir="ltr">
+    <div class="calculator">
         <h1>Coffee Brewing Calculator</h1>
         
         <button id="toggleMode" class="toggle-mode">Switch to Brewer Capacity Mode</button>
@@ -244,85 +226,6 @@
     </div>
 
     <script>
-        // Translations
-        const translations = {
-            en: {
-                title: "Coffee Brewing Calculator",
-                volumeLabel: "Desired Brew Volume (L)",
-                capacityLabel: "Brewer Capacity (L)",
-                strengthLabel: "Desired Brew Strength (TDS%)",
-                ratioLabel: "Brewing Ratio",
-                retainedLabel: "Liquid Retained Ratio",
-                toggleMode: "Switch to Brewer Capacity Mode",
-                toggleModeAlt: "Switch to Desired Volume Mode",
-                resultsTitle: "Results",
-                coffeeNeeded: "{value} grams of ground coffee",
-                waterNeeded: "{value} mL/grams of room temperature water",
-                totalWeight: "This brew should weigh {value} grams on scales",
-                extraction: "Target extraction is {value}%",
-                extractionInfo1: "Extraction between 18 to 21% is ideal",
-                extractionInfo2: "Below 18% is under-extracted, and likely to be sour",
-                extractionInfo3: "Over 21% is over-extracted, and likely to be bitter and dry"
-            },
-            ar: {
-                title: "حاسبة تحضير القهوة",
-                volumeLabel: "حجم التخمير المطلوب (لتر)",
-                capacityLabel: "سعة وعاء التحضير (لتر)",
-                strengthLabel: "قوة التخمير المطلوبة (TDS%)",
-                ratioLabel: "نسبة التحضير",
-                retainedLabel: "نسبة السائل المحتفظ به",
-                toggleMode: "التبديل إلى وضع سعة وعاء التحضير",
-                toggleModeAlt: "التبديل إلى وضع الحجم المطلوب",
-                resultsTitle: "النتائج",
-                coffeeNeeded: "{value} جرام من البن المطحون",
-                waterNeeded: "{value} مل/جرام من الماء بدرجة حرارة الغرفة",
-                totalWeight: "يجب أن يزن هذا التخمير {value} جرام على الميزان",
-                extraction: "نسبة الاستخلاص المستهدفة {value}%",
-                extractionInfo1: "الاستخلاص المثالي بين 18 و 21%",
-                extractionInfo2: "أقل من 18% يعني استخلاص ضعيف، ومن المحتمل أن يكون حامضياً",
-                extractionInfo3: "أكثر من 21% يعني استخلاص زائد، ومن المحتمل أن يكون مراً وجافاً"
-            }
-        };
-
-        function formatNumber(num, lang) {
-            if (lang === 'ar') {
-                const arabicNums = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-                return num.toString().replace(/[0-9]/g, w => arabicNums[w]);
-            }
-            return num;
-        }
-
-        function updateLanguage(lang) {
-            const t = translations[lang];
-            const calculator = document.querySelector('.calculator');
-            
-            // Set direction
-            calculator.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-            
-            // Update static text
-            document.querySelector('.calculator h1').textContent = t.title;
-            document.querySelector('#volumeInput label').textContent = t.volumeLabel;
-            document.querySelector('#capacityInput label').textContent = t.capacityLabel;
-            document.querySelector('#brewStrength').previousElementSibling.textContent = t.strengthLabel;
-            document.querySelector('#brewingRatio').previousElementSibling.textContent = t.ratioLabel;
-            document.querySelector('#liquidRetained').previousElementSibling.textContent = t.retainedLabel;
-            document.querySelector('.results h2').textContent = t.resultsTitle;
-            
-            // Update toggle button
-            const toggleButton = document.querySelector('#toggleMode');
-            toggleButton.textContent = toggleButton.textContent.includes('Capacity') ? 
-                t.toggleMode : t.toggleModeAlt;
-            
-            // Update extraction info
-            const extractionInfo = document.querySelector('.extraction-info').children;
-            extractionInfo[0].textContent = t.extractionInfo1;
-            extractionInfo[1].textContent = t.extractionInfo2;
-            extractionInfo[2].textContent = t.extractionInfo3;
-
-            // Recalculate to update results with new language
-            calculateRecipe(toggleButton.textContent.includes('Volume'));
-        }
-
         function calculateRecipe(isBrewerMode = false) {
             let targetBrewVolume;
             if (isBrewerMode) {
@@ -342,22 +245,16 @@
             const totalWeight = waterNeeded - (coffeeNeeded * liquidRetained);
             const targetExtraction = (totalWeight / coffeeNeeded) * brewStrength;
 
-            // Get current language
-            const currentLang = document.querySelector('.calculator').getAttribute('dir') === 'rtl' ? 'ar' : 'en';
-            const t = translations[currentLang];
-
-            // Update results with translated text
             document.getElementById('coffeeNeeded').textContent = 
-                t.coffeeNeeded.replace('{value}', formatNumber(coffeeNeeded.toFixed(1), currentLang));
+                `${coffeeNeeded.toFixed(1)} grams of ground coffee`;
             document.getElementById('waterNeeded').textContent = 
-                t.waterNeeded.replace('{value}', formatNumber(waterNeeded.toFixed(0), currentLang));
+                `${waterNeeded.toFixed(0)} mL/grams of room temperature water`;
             document.getElementById('totalWeight').textContent = 
-                t.totalWeight.replace('{value}', formatNumber(totalWeight.toFixed(0), currentLang));
+                `This brew should weigh ${totalWeight.toFixed(0)} grams on scales`;
             document.getElementById('extraction').textContent = 
-                t.extraction.replace('{value}', formatNumber(targetExtraction.toFixed(2), currentLang));
+                `Target extraction is ${targetExtraction.toFixed(2)}%`;
         }
 
-        // Setup event listeners
         document.addEventListener('DOMContentLoaded', function() {
             // Add click handlers for custom steppers
             document.querySelectorAll('.stepper-input').forEach(stepper => {
@@ -367,10 +264,39 @@
                 stepper.addEventListener('click', (e) => {
                     const rect = stepper.getBoundingClientRect();
                     const x = e.clientX - rect.left;
-                    const isRTL = document.querySelector('.calculator').getAttribute('dir') === 'rtl';
                     
-                    if ((!isRTL && x < 40) || (isRTL && x > rect.width - 40)) { // Minus
+                    if (x < 40) { // Clicked minus
                         input.value = (parseFloat(input.value) - step).toFixed(2);
                         input.dispatchEvent(new Event('input'));
-                    } else if ((!isRTL && x > rect.width - 40) || (isRTL && x < 40)) { // Plus
-                        input.value = (parseFloat(input.value)
+                    } else if (x > rect.width - 40) { // Clicked plus
+                        input.value = (parseFloat(input.value) + step).toFixed(2);
+                        input.dispatchEvent(new Event('input'));
+                    }
+                });
+            });
+
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('input', () => calculateRecipe(toggleMode.textContent.includes('Volume')));
+            });
+
+            const toggleMode = document.getElementById('toggleMode');
+            toggleMode.addEventListener('click', function() {
+                const volumeInput = document.getElementById('volumeInput');
+                const capacityInput = document.getElementById('capacityInput');
+                const isBrewerMode = toggleMode.textContent.includes('Volume');
+                
+                volumeInput.style.display = isBrewerMode ? 'block' : 'none';
+                capacityInput.style.display = isBrewerMode ? 'none' : 'block';
+                toggleMode.textContent = isBrewerMode ? 
+                    'Switch to Brewer Capacity Mode' : 
+                    'Switch to Desired Volume Mode';
+                
+                calculateRecipe(isBrewerMode);
+            });
+
+            calculateRecipe(false);
+        });
+    </script>
+</body>
+</html>
