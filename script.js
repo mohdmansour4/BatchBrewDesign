@@ -72,10 +72,10 @@ closeButton.addEventListener("click", () => {
 });
 
 //make arrow
-svg.append("g").attr("transform", "translate(" + (w + padding.left + padding.right - 15) + "," + ((h / 2) + padding.top) + ")").append("path").attr("d", "M-" + (r * .25) + ",0L0," + (r * .15) + "L0,-" + (r * .18) + "Z").style({ "fill": "#b9ae9a", "filter": "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))" });
+svg.append("g").attr("transform", "translate(" + (w + padding.left + padding.right - 15) + "," + ((h / 2) + padding.top) + ")").append("path").attr("d", "M-" + (r * .25) + ",0L0," + (r * .15) + "L0,-" + (r * .18) + "Z").style({ "fill": "#A86B38", "filter": "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))" });
 
 //draw spin circle
-container.append("circle").attr("cx", 0).attr("cy", 0).attr("r", 21).style({ "fill": "#b9ae9a", "cursor": "pointer", "filter": "drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.25))" });
+container.append("circle").attr("cx", 0).attr("cy", 0).attr("r", 21).style({ "fill": "#A86B38", "cursor": "pointer", "filter": "drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.25))" });
 //spin text
 container.append("text").attr("x", 0).attr("y", 4).attr("text-anchor", "middle").text("SPIN").style({ "fill": "#ffffff", "font-size": "10px", "cursor": "pointer" }).on("click", spin);
 
