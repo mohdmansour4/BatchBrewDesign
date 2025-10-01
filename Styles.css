@@ -4,22 +4,22 @@
   }
   
   @font-face {
-    font-family: Tajawal;
-    src: url('https://fonts.googleapis.com/css2?family=Tajawal&display=swap');
+    font-family: CircularXXTT;
+    src: url('https://cdn.moengage.com/inbound-ui/html-template/assets/font/CircularXXTT-Regular.ttf');
   }
   
   @font-face {
-    font-family: Tajawal;
-    src: url('https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap');
+    font-family: CircularXXTTM;
+    src: url('https://cdn.moengage.com/inbound-ui/html-template/assets/font/CircularXXTT-Medium.ttf');
   }
   
   @font-face {
-    font-family: Tajawal;
-    src: url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300&display=swap');
+    font-family: CircularXXTTT;
+    src: url('https://cdn.moengage.com/inbound-ui/html-template/assets/font/CircularXXTT-Thin.ttf');
   }
   
   html * {
-    font-family: Tajawal; 
+    font-family: CircularXXTT;
   }
   
   .main {
@@ -70,12 +70,12 @@
       color: #1E1E1E;
   }
   button {
-      background: #b9ae9a;
+      background: #6a2d44;
       border-radius: 4px;
       border: none;
       padding: 8px 16px;
       font-size: 14px;
-      color: #b9ae9a;
+      color: #fff;
       line-height: 140%;
       width: 191px;
       height: 36px;
@@ -88,7 +88,7 @@
       font-size: 20px;
       line-height: 140%;
       color: #1E1E1E;
-      font-family: Tajawal;
+      font-family: CircularXXTTM;
   }
   h4 {
       grid-row: 3 / 4;
@@ -105,22 +105,22 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-      border: 1px dashed #b9ae9a;
+      border: 1px dashed #FF595E;
       padding: 10px;
-      background: #b9ae9a;
+      background: #FFEDED;
       border-radius: 4px;
       width: 191px;
       height: 44px;
   }
   code > p {
-    font-family: Tajawal;
+    font-family: monospace;
   }
   code img {
     cursor: pointer;
   }
   code > span {
     display: none;
-    color: #b9ae9a;
+    color: #ff595f;
     font-size: 35px;
   }
   code + p {
@@ -131,7 +131,7 @@
   }
   .wheel-screen h2 + h4 + div + p {
       font-size: 11px;
-      font-family: Tajawal;
+      font-family: CircularXXTTT;
   }
   #wheel {
     grid-column: 1 / 2;
